@@ -5,6 +5,7 @@ using RabbitMQ.Client;
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using MessagePack;
 
 namespace MyRabbitMqService.BL.Services
 {
@@ -38,8 +39,7 @@ namespace MyRabbitMqService.BL.Services
         {
             await Task.Factory.StartNew(() =>
             {
-                var serialize = JsonConvert.SerializeObject(p);
-                var body = Encoding.UTF8.GetBytes(serialize);
+                var body = MessagePackSerializer.Serialize(p);
 
                 _channel.BasicPublish("", "person", body: body);
             });
