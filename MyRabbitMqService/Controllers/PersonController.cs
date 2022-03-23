@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyRabbitMqService.BL.Interfaces;
+using MyRabbitMqService.DL;
 using MyRabbitMqService.Models;
 
 namespace MyRabbitMqService.Controllers
@@ -11,13 +12,17 @@ namespace MyRabbitMqService.Controllers
     public class PersonController : ControllerBase
     {
         private readonly IRabbitMqService _rabbitMqService;
+        private readonly IPersonRepository _personRepository;
         private readonly ILogger<PersonController> _logger;
 
 
-        public PersonController(ILogger<PersonController> logger, IRabbitMqService rabbitMqService)
+
+        public PersonController(ILogger<PersonController> logger, IRabbitMqService rabbitMqService, IPersonRepository personRepository)
         {
             _logger = logger;
             _rabbitMqService = rabbitMqService;
+            _personRepository = personRepository;
+
         }
 
         [HttpPost]

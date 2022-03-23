@@ -1,18 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MyRabbitMqService.BL.Interfaces;
 using MyRabbitMqService.BL.Services;
+using MyRabbitMqService.DL;
 
 namespace MyRabbitMqService
 {
@@ -29,6 +23,8 @@ namespace MyRabbitMqService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IRabbitMqService, RabbitMqService>();
+            services.AddSingleton<IPersonRepository, PersonRepository>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

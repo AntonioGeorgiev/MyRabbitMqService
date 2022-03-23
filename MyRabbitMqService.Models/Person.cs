@@ -1,4 +1,5 @@
 ﻿using MessagePack;
+using System;
 
 namespace MyRabbitMqService.Models
 {
@@ -10,5 +11,8 @@ namespace MyRabbitMqService.Models
 
         [Key(1)]
         public string Name { get; set; }
+
+        [Key(2)]
+        public DateTime LastUpdated { get; set; }
     }
 }
