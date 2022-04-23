@@ -1,3 +1,4 @@
+using ConsoleApp3;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,8 @@ using Microsoft.OpenApi.Models;
 using MyRabbitMqService.BL.Interfaces;
 using MyRabbitMqService.BL.Services;
 using MyRabbitMqService.DL;
+using MyRabbitMqService.Models;
+using Producer;
 
 namespace MyRabbitMqService
 {
@@ -22,8 +25,14 @@ namespace MyRabbitMqService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            services.Configure<MongoDbConfiguration>(Configuration.GetSection(nameof(MongoDbConfiguration)));
             services.AddSingleton<IRabbitMqService, RabbitMqService>();
             services.AddSingleton<IPersonRepository, PersonRepository>();
+            services.AddSingleton<IKafkaProducer, KafkaProducer>();
+
+            services.AddHostedService<CachePublisher>();
+            services.AddHostedService<KafkaConsumer>();
 
 
             services.AddControllers();

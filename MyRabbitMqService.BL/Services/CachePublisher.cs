@@ -8,7 +8,7 @@ using MyRabbitMqService.DL;
 
 namespace MyRabbitMqService.BL.Services
 {
-    class CachePublisher : IHostedService, IDisposable 
+    public class CachePublisher : IHostedService, IDisposable 
        
     {
         private Timer _timer;
